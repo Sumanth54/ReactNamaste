@@ -16,6 +16,9 @@ root.render(heading)*/
 </div>  
 */
 
+import React from "react";
+import ReactDOM from "react-dom";
+
 
 const parent  =  React.createElement("div", {id : "parent"}, [React.createElement("div", {id : "child1"}, [React.createElement("h1", {}, "heading1"),React.createElement("h1", {}, "heading2")]), React.createElement("div", {id : "child1"}, [React.createElement("h1", {}, "heading1"),React.createElement("h1", {}, "heading2")])]);
 

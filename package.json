@@ -1,0 +1,30 @@
+{
+  "name": "reactnamste",
+  "version": "1.0.0",
+  "description": "Preactice of node/react",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sumanth54/ReactNamaste.git"
+  },
+  "keywords": [
+    "React",
+    "Parcel"
+  ],
+  "author": "Sumanth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sumanth54/ReactNamaste/issues"
+  },
+  "homepage": "https://github.com/Sumanth54/ReactNamaste#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
