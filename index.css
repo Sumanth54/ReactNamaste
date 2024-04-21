@@ -1,3 +1,65 @@
-.heading{
-    color: rgb(205, 121, 17);
+.header {
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 90px;
+    height: 40px;
+    padding: 10px;
+}
+.nav-container > ul {
+    display: flex;
+margin-top: 18px;
+margin-right: 10px;
+}
+
+.nav-container > ul >li {
+    padding: 5px;
+    list-style-type: none;
+}
+
+.body{
+   /*  border: 1px solid black; */
+}
+
+.searchbox{
+    padding: 10px;
+}
+.res-container{
+    /* border: 1px solid black; */
+    display: flex;
+    
+    flex-wrap: wrap;
+    
+}
+.res-logo{
+    width: 100%;
+    height: 170px;
+     
+}
+.res-card{
+    
+    width: 209px;
+    
+    background-color: aliceblue;
+    padding: 5px;
+    margin: 9px;
+    
+    
+}
+
+.res-card:hover{
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.res-card > h4 {
+    font-size: small;
+}
+
+.footer{
+    border: 2px solid black;
+    height: 29px;
 }
