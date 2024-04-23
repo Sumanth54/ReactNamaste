@@ -68,3 +68,24 @@ margin-right: 10px;
 .sortByrating{
     margin: 5px;
 }
+
+.searchBox {
+    display: inline-flex;
+    border: px solid black;
+}
+.searchRest{
+    padding: 5px;
+    margin: 10px;
+    width: 250px;
+}
+
+.goToRest {
+    background-color: azure;
+    border: 2px solid #000;
+    width: 54px;
+    height: 15px;
+    margin-top: 12px;
+    padding-left: 5px;
+    justify-content: center;
+    padding: 3px;
+}

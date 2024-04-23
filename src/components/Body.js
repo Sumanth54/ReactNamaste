@@ -1,6 +1,7 @@
 import resList from "../Utils/mockData"; 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestCard from "./ResturantCard";
+import SearchBOx from "./Search";
 
 /* let resList = [
     {
@@ -82,16 +83,36 @@ import RestCard from "./ResturantCard";
 
   const Body = () => {
     
-  const [listOfResturant , setListOfResturant] = useState(resList);
+  const [listOfResturant , setListOfResturant] = useState([]);
+
+
+
+  useEffect(() => {
+    fetchData();
+  },[])
+
+  const fetchData = async () => {
+    let data  =  await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+    let json = await data.json();
+
+    setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  }
 
     return (
       <div className="body">
+          <input type="text" placeholder="enter the resturant name " id="searchRest" className="searchRest" name="searchRest"/>
+         <button  className="goToRest" onClick={() => {
+             let searchInner = document.getElementById("searchRest");
+             let sortedData = listOfResturant.filter((res) => res.info.name.includes(searchInner.value))
+             setListOfResturant(sortedData)          
+             }}>Find</button>
         <button className="sortByrating" onClick={() => {
            let filterdRest = listOfResturant.filter(
             (res) =>  res.info.avgRating > 4.5
            )
            setListOfResturant(filterdRest)
-        }}>to rated resturant </button>
+        }}>top rated resturant </button>
+        
         <div className="res-container">
           {listOfResturant.map((resobj)=>  <RestCard key= {resobj.info.id} restData = {resobj} />)}
         </div>
