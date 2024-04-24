@@ -89,3 +89,17 @@ margin-right: 10px;
     justify-content: center;
     padding: 3px;
 }
+
+.shimmer_layout{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shimmer_card{
+    width: 200px;
+    height: 250px;
+    margin: 10px;
+    padding: 2px;
+    background-color: azure;
+
+}

@@ -2,7 +2,7 @@ import resList from "../Utils/mockData";
 import { useEffect, useState } from "react";
 import RestCard from "./ResturantCard";
 import SearchBOx from "./Search";
-
+import Shimmer from "./Shimmer";
 /* let resList = [
     {
       "info": {
@@ -96,6 +96,13 @@ import SearchBOx from "./Search";
     let json = await data.json();
 
     setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  }
+
+
+  if(listOfResturant.length === 0 ){
+    return(
+      <Shimmer />
+    )
   }
 
     return (
