@@ -84,18 +84,29 @@ import Shimmer from "./Shimmer";
   const Body = () => {
     
   const [listOfResturant , setListOfResturant] = useState([]);
+  const [filterdREsturant , setfilterdREsturant] = useState([]);
 
-
+ const [searchRest , setsearchRest] = useState("");
 
   useEffect(() => {
     fetchData();
   },[])
 
   const fetchData = async () => {
-    let data  =  await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-    let json = await data.json();
+    try {
+      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+      const json = await data.json();
+      setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setfilterdREsturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+      
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+   /*  let data  =  await fetch("https://www.swiggy.com/dapi/restaurants/list")
+    let json = await data.json(); */
 
-    setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    
   }
 
 
@@ -107,21 +118,25 @@ import Shimmer from "./Shimmer";
 
     return (
       <div className="body">
-          <input type="text" placeholder="enter the resturant name " id="searchRest" className="searchRest" name="searchRest"/>
+          <input type="text" placeholder="enter the resturant name " id="searchRest" className="searchRest" value={searchRest} onChange={(e) => {
+             setsearchRest( e.target.value) ;
+             
+          }}/>
          <button  className="goToRest" onClick={() => {
-             let searchInner = document.getElementById("searchRest");
-             let sortedData = listOfResturant.filter((res) => res.info.name.includes(searchInner.value))
-             setListOfResturant(sortedData)          
-             }}>Find</button>
+          let filteredRest  =  listOfResturant.filter((res) => {
+            return res.info?.name.toLowerCase().includes(searchRest.toLocaleLowerCase())
+          })
+          setfilterdREsturant (filteredRest);
+         }}>Find</button>
         <button className="sortByrating" onClick={() => {
-           let filterdRest = listOfResturant.filter(
+           let filterdRestByRating = listOfResturant.filter(
             (res) =>  res.info.avgRating > 4.5
            )
-           setListOfResturant(filterdRest)
+           setfilterdREsturant(filterdRestByRating)
         }}>top rated resturant </button>
         
         <div className="res-container">
-          {listOfResturant.map((resobj)=>  <RestCard key= {resobj.info.id} restData = {resobj} />)}
+          {filterdREsturant.map((resobj)=>  <RestCard key= {resobj.info.id} restData = {resobj} />)}
         </div>
       </div>
     );

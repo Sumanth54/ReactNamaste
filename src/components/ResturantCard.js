@@ -2,8 +2,7 @@ import { RES_CDN } from "../Utils/constants";
 
 const RestCard = (props) => {
     const restData = props.restData
-    console.log(restData)
-    
+   
   
     return (
       <div className="res-card">
