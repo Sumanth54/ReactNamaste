@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import RestCard from "./ResturantCard";
 import SearchBOx from "./Search";
 import Shimmer from "./Shimmer";
+import ResturantMenu from "./ResturantMenu";
+import { Link } from "react-router-dom";
 /* let resList = [
     {
       "info": {
@@ -96,6 +98,7 @@ import Shimmer from "./Shimmer";
     try {
       const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
       const json = await data.json();
+      console.log(json.data)
       setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     setfilterdREsturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
       
@@ -136,7 +139,7 @@ import Shimmer from "./Shimmer";
         }}>top rated resturant </button>
         
         <div className="res-container">
-          {filterdREsturant.map((resobj)=>  <RestCard key= {resobj.info.id} restData = {resobj} />)}
+          {filterdREsturant.map((resobj)=> <Link  key= {resobj.info.id} to={"Restaurant/" + resobj.info.id}><RestCard key= {resobj.info.id} restData = {resobj} /></Link> )}
         </div>
       </div>
     );

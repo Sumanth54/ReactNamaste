@@ -3,6 +3,9 @@ import { RES_CDN } from "../Utils/constants";
 const RestCard = (props) => {
     const restData = props.restData
    
+
+
+    
   
     return (
       <div className="res-card">
