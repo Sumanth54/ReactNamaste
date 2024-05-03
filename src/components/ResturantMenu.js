@@ -20,7 +20,7 @@ const ResturantMenu = () => {
       let json = await data.json();
 
       setMenuData(json.data);
-      console.log(MenuData);
+      console.log(json.data);
       
       //console.log(json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card.itemCards[0].card.info.name
     } catch (error) {
@@ -36,8 +36,7 @@ const ResturantMenu = () => {
   const resDATA = MenuData?.cards[2]?.card?.card?.info;
 
   const itemCards =
-    MenuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
-      ?.itemCards;
+    (MenuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards) || (MenuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards) || (MenuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card?.itemCards);
 
   return (
     <div>
@@ -50,7 +49,7 @@ const ResturantMenu = () => {
         {itemCards.map((items) => (
           <li key={items.card.info.id}>
             {items.card.info.name} {"---  RS."}{" "}
-            {items.card.info.defaultPrice / 100 || items.card.info.price / 100}
+            {items.card.info.defaultPrice / 100 || items.card.info.price / 100} 
           </li>
         ))}
       </ul>
