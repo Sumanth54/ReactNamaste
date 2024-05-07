@@ -1,10 +1,11 @@
-import resList from "../Utils/mockData"; 
+import resList from "../Utils/mockData";
 import { useEffect, useState } from "react";
 import RestCard from "./ResturantCard";
 import SearchBOx from "./Search";
 import Shimmer from "./Shimmer";
 import ResturantMenu from "./ResturantMenu";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../Utils/useOnlineStatus";
 /* let resList = [
     {
       "info": {
@@ -81,70 +82,96 @@ import { Link } from "react-router-dom";
   }]
  */
 
-
-
-  const Body = () => {
-    
-  const [listOfResturant , setListOfResturant] = useState([]);
-  const [filterdREsturant , setfilterdREsturant] = useState([]);
-
- const [searchRest , setsearchRest] = useState("");
-
+const Body = () => {
+  const [listOfResturant, setListOfResturant] = useState([]);
+  const [filterdREsturant, setfilterdREsturant] = useState([]);
+ const [searchRest, setsearchRest] = useState("");
 
   useEffect(() => {
     fetchData();
-  },[])
+  }, []);
 
   const fetchData = async () => {
     try {
-      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
       const json = await data.json();
-      console.log(json.data)
-      setListOfResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setfilterdREsturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+      console.log(json.data);
+      setListOfResturant(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          .restaurants
+      );
+      setfilterdREsturant(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
       
+      console.log("data called and udpadted");
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       throw error;
     }
-   /*  let data  =  await fetch("https://www.swiggy.com/dapi/restaurants/list")
-    let json = await data.json(); */
+  };
 
-    
-  }
+    const onlineStatus = useOnlineStatus()
 
-
-  if(listOfResturant.length === 0 ){
-    return(
-      <Shimmer />
+  if( onlineStatus === false){
+    return (
+      <h1>HI you are offline</h1>
     )
   }
 
-    return (
-      <div className="body">
-          <input type="text" placeholder="enter the resturant name " id="searchRest" className="searchRest" value={searchRest} onChange={(e) => {
-             setsearchRest( e.target.value) ;
-             
-          }}/>
-         <button  className="goToRest" onClick={() => {
-          let filteredRest  =  listOfResturant.filter((res) => {
-            return res.info?.name.toLowerCase().includes(searchRest.toLocaleLowerCase())
-          })
-          setfilterdREsturant (filteredRest);
-         }}>Find</button>
-        <button className="sortByrating" onClick={() => {
-           let filterdRestByRating = listOfResturant.filter(
-            (res) =>  res.info.avgRating > 4.5
-           )
-           setfilterdREsturant(filterdRestByRating)
-        }}>top rated resturant </button>
-        
-        <div className="res-container">
-          {filterdREsturant.map((resobj)=> <Link  key= {resobj.info.id} to={"Restaurant/" + resobj.info.id}><RestCard key= {resobj.info.id} restData = {resobj} /></Link> )}
-        </div>
+  if (listOfResturant?.length === 0) {
+    return <Shimmer />;
+  }
+
+  return (
+    <div className="body">
+      <input
+        type="text"
+        placeholder="enter the resturant name "
+        id="searchRest"
+        className="searchRest"
+        value={searchRest}
+        onChange={(e) => {
+          setsearchRest(e.target.value);
+        }}
+      />
+      <button
+        className="goToRest"
+        onClick={() => {
+          let filteredRest = listOfResturant.filter((res) => {
+            return res.info?.name
+              .toLowerCase()
+              .includes(searchRest.toLocaleLowerCase());
+          });
+          setfilterdREsturant(filteredRest);
+        }}
+      >
+        Find
+      </button>
+      <button
+        className="sortByrating"
+        onClick={() => {
+          let filterdRestByRating = listOfResturant.filter(
+            (res) => res.info.avgRating > 4.5
+          );
+          setfilterdREsturant(filterdRestByRating);
+        }}
+      >
+        top rated resturant
+      </button>
+
+      <div className="res-container">
+        {filterdREsturant?.map((resobj) => (
+          <Link key={resobj.info.id} to={"Restaurant/" + resobj.info.id}>
+            <RestCard key={resobj.info.id} restData={resobj} />
+          </Link>
+        ))}
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-
-  export default Body
+export default Body;

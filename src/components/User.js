@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const User  = (props) => {
 
     const [count , setCount] = useState(0);
     const [count2, setCount2] = useState(2);
    
+     useEffect(() => {
+        let timer = setInterval(() => {
+            console.log("timerFunction")
+        },1000)
+
+        return ()  => {
+            clearInterval(timer)
+        }
+    } 
+
+   
     
+    ,[]) 
 
     return (
         <div className="user_function">
