@@ -127,19 +127,19 @@ const Body = () => {
   }
 
   return (
-    <div className="body">
+    <div className="bg-orange-100 ">
       <input
         type="text"
         placeholder="enter the resturant name "
-        id="searchRest"
-        className="searchRest"
+        
+        className="m-5 w-1/4 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 hover:bg-zinc-200"
         value={searchRest}
         onChange={(e) => {
           setsearchRest(e.target.value);
         }}
       />
       <button
-        className="goToRest"
+        className=" px-5 p-1 m-1 border-solid border-2 border-orange-600 rounded-lg hover:bg-orange-300  "
         onClick={() => {
           let filteredRest = listOfResturant.filter((res) => {
             return res.info?.name
@@ -152,7 +152,7 @@ const Body = () => {
         Find
       </button>
       <button
-        className="sortByrating"
+        className="px-5 p-1 m-1 border-solid border-2 border-orange-600 rounded-lg  hover:bg-orange-300"
         onClick={() => {
           let filterdRestByRating = listOfResturant.filter(
             (res) => res.info.avgRating > 4.5
@@ -160,16 +160,16 @@ const Body = () => {
           setfilterdREsturant(filterdRestByRating);
         }}
       >
-        top rated resturant
+        Top rated resturant
       </button>
-
-      <div className="res-container">
+ 
+      <div className=" flex flex-wrap" >
         {filterdREsturant?.map((resobj) => (
           <Link key={resobj.info.id} to={"Restaurant/" + resobj.info.id}>
             <RestCard key={resobj.info.id} restData={resobj} />
           </Link>
         ))}
-      </div>
+      </div> 
     </div>
   );
 };

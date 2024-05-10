@@ -44,7 +44,7 @@ const ResturantMenu = () => {
 
   return (
     <div>
-      <h1>{resDATA.name}</h1>
+      <h1 className="decoration-solid  font-bold text-2xl font-serif p-1">{resDATA.name}</h1>
       <h2>{resDATA.cuisines.join(",")}</h2>
       <h3>{resDATA.locality}</h3>
 

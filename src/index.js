@@ -47,7 +47,7 @@ const Parent = () => (
   </h1>
 );*/
 
-import React from "react";
+import React, { lazy , Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -56,12 +56,16 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import ResturantMenu from "./components/ResturantMenu";
+// import Instamart from "./components/Instamart.js"
 
 import { RouterProvider,createBrowserRouter , Outlet } from "react-router-dom";
 
 
-const Applayot = () => {
+const Instamart = lazy(()=>
+  import("./components/Instamart.js")
+)
 
+const Applayot = () => {
   return (
     <div className="app">
       <Header />
@@ -87,9 +91,12 @@ const appRouter = createBrowserRouter([
       path : "/contact",
       element : <Contact />,
     },{
-      path : "restaurant/:id",
+      path : "/restaurant/:id",
       element : <ResturantMenu/>
-    }
+    },{
+      path : "/instamart",
+      element : <Instamart/>
+    },
   
   ],
     errorElement : < Error />
