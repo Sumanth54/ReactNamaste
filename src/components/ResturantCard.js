@@ -25,4 +25,20 @@ const RestCard = (props) => {
     );
   };
 
+
+  export const IsNewlyOnboardedComp = (RestCard) => {
+    return (props) => {
+     return(
+      <div>
+        <label className="absolute bg-green-400 text-white p-1 m-6  rounded-full hover:text-sm">Newly added</label>
+        {console.log(props)}
+        <RestCard {...props}/>
+      </div>
+     )
+    }
+  } 
+
+
+ 
+
   export default RestCard;

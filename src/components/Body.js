@@ -1,11 +1,12 @@
 import resList from "../Utils/mockData";
 import { useEffect, useState } from "react";
-import RestCard from "./ResturantCard";
+import RestCard , { IsNewlyOnboardedComp } from "./ResturantCard";
 import SearchBOx from "./Search";
 import Shimmer from "./Shimmer";
 import ResturantMenu from "./ResturantMenu";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../Utils/useOnlineStatus";
+
 /* let resList = [
     {
       "info": {
@@ -87,8 +88,10 @@ const Body = () => {
   const [filterdREsturant, setfilterdREsturant] = useState([]);
  const [searchRest, setsearchRest] = useState("");
 
+ const NewlyAdded = IsNewlyOnboardedComp(RestCard);
   useEffect(() => {
     fetchData();
+    
   }, []);
 
   const fetchData = async () => {
@@ -98,6 +101,7 @@ const Body = () => {
       );
       const json = await data.json();
       console.log(json.data);
+      
       setListOfResturant(
         json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
           .restaurants
@@ -107,7 +111,7 @@ const Body = () => {
           ?.restaurants
       );
       
-      console.log("data called and udpadted");
+      console.log("data called and udpadted", listOfResturant);
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -166,7 +170,9 @@ const Body = () => {
       <div className=" flex flex-wrap" >
         {filterdREsturant?.map((resobj) => (
           <Link key={resobj.info.id} to={"Restaurant/" + resobj.info.id}>
-            <RestCard key={resobj.info.id} restData={resobj} />
+            {resobj?.info?.isNewlyOnboarded ? <NewlyAdded restData={resobj} /> : <RestCard key={resobj.info.id} restData={resobj} />}
+
+            
           </Link>
         ))}
       </div> 
